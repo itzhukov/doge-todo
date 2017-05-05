@@ -1,8 +1,15 @@
 .app-todo
   display: flex
-  flex-direction: column
+  flex-direction: row
   padding: 20px
-  min-width: 320px
+  min-width: 700px
+  justify-content: space-between
+
+.app-todo__categoryes,
+.app-todo__tasks
+  flex-direction: column
+  display: flex
+  width: 50%
 
 .add-category
   padding: 15px
@@ -13,7 +20,7 @@
 .add-category__category-name
     border: 1px solid #666
     transition: border 300ms ease
-    width: 70%
+    width: 60%
 
 .add-category__category-name_inputError
   outline: 1px solid #f90000
@@ -25,7 +32,7 @@
     box-shadow: none
     border: 1px solid #666
     outline: none
-    width: 30%
+    width: 40%
     cursor: pointer
 
 .category-list
@@ -40,9 +47,51 @@
   padding: 5px
   display: flex
   justify-content: space-between
+  cursor: pointer
+
+.category-list__category_active
+  background: #f1f1f1
 
 .category-list__category__button-add-sub-category
   cursor: pointer
 
 .category-list__category:last-child
   margin-bottom: 0
+
+
+.add-task
+  padding: 15px
+  border: 1px solid #666
+  border-left: none
+  display: flex
+  justify-content: space-between
+
+.add-task__task-name
+    border: 1px solid #666
+    transition: border 300ms ease
+    width: 60%
+
+.add-task__button-add-task
+    margin-left: 15px
+    background: none
+    -webkit-appearance: none
+    box-shadow: none
+    border: 1px solid #666
+    outline: none
+    width: 40%
+    cursor: pointer
+
+.task-list
+  padding: 15px
+  border: 1px solid #666
+  border-top: none
+  border-left: none
+  word-wrap: break-word
+
+.task-list__task
+  border: 1px solid #666
+  margin-bottom: 15px
+  padding: 5px
+  display: flex
+  justify-content: space-between
+  cursor: pointer

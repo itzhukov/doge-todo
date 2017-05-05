@@ -1,2 +1,4 @@
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const ADD_SUB_CATEGORY = 'ADD_SUB_CATEGORY';
+export const SELCT_ACTIVE_CATEGORY = 'SELCT_ACTIVE_CATEGORY';
+export const ADD_TASK = 'ADD_TASK';

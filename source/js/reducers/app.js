@@ -1,6 +1,8 @@
 import * as ActionTypes from '../constants/ActionTypes';
 import { Map, List } from 'immutable';
 
+const initialTasks = List([]);
+
 const initialCategoryes = List([{
   id: 0,
   parentId: 0,
@@ -8,10 +10,12 @@ const initialCategoryes = List([{
 }]);
 
 const initialState = Map({
-  lastId: 0,
+  activeCategoryId: 0,
+  lastCategoryId: 0,
+  lastTaskId: 0,
   counter: 0,
   categoryes: initialCategoryes,
-  tasks: [],
+  tasks: initialTasks,
   filt: {
     searchText: '',
     onlySuccess: false
@@ -20,27 +24,47 @@ const initialState = Map({
 
 export default function app(previousState = initialState, action = {}) {
   switch (action.type) {
+    case ActionTypes.ADD_TASK:
+      let newTaskId = previousState.get('lastTaskId') + 1;
+      let oldTasks = previousState.get('tasks');
+
+      return previousState.mergeDeep(Map({
+        lastTaskId: newTaskId,
+        tasks: oldTasks.concat(List([
+          {
+            id: newTaskId,
+            text: action.text,
+            parentId: action.activeCategoryId
+          }
+        ]))
+      }));
+      break;
+
+    case ActionTypes.SELCT_ACTIVE_CATEGORY:
+      return previousState.merge({
+        activeCategoryId: action.payload
+      });
+      break;
+
     case ActionTypes.ADD_SUB_CATEGORY:
       console.log('ADD_SUB_CATEGORY', action.payload);
       return previousState.merge({});
       break;
 
     case ActionTypes.ADD_CATEGORY:
-      const newId = previousState.get('lastId') + 1 ;
-      const oldCategoryes = previousState.get('categoryes');
+      let newCategoryId = previousState.get('lastCategoryId') + 1 ;
+      let oldCategoryes = previousState.get('categoryes');
 
-      const newCat = List([{
-        id: newId,
-        parentId: 0,
-        name: action.payload
-      }]);
-
-      const newState =  Map({
-        lastId: newId,
-        categoryes: oldCategoryes.concat(newCat)
-      });
-
-      return previousState.mergeDeep(newState);
+      return previousState.mergeDeep(Map({
+        lastCategoryId: newCategoryId,
+        categoryes: oldCategoryes.concat(List([
+          {
+            id: newCategoryId,
+            parentId: 0,
+            name: action.payload
+          }
+        ]))
+      }));
       break;
 
     default:
