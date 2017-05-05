@@ -1,2 +1,2 @@
-export const TEST_ACTION = 'TEST_ACTION';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const ADD_SUB_CATEGORY = 'ADD_SUB_CATEGORY';

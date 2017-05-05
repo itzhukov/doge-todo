@@ -11,7 +11,7 @@ export default class App extends Component {
     const { children } = this.props;
 
     return (
-      <div className="app-todo">
+      <div className="wrapper">
           { children }
       </div>
     );

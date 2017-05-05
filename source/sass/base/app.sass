@@ -1,1 +1,48 @@
 .app-todo
+  display: flex
+  flex-direction: column
+  padding: 20px
+  min-width: 320px
+
+.add-category
+  padding: 15px
+  border: 1px solid #666
+  display: flex
+  justify-content: space-between
+
+.add-category__category-name
+    border: 1px solid #666
+    transition: border 300ms ease
+    width: 70%
+
+.add-category__category-name_inputError
+  outline: 1px solid #f90000
+
+.add-category__button-add-category
+    margin-left: 15px
+    background: none
+    -webkit-appearance: none
+    box-shadow: none
+    border: 1px solid #666
+    outline: none
+    width: 30%
+    cursor: pointer
+
+.category-list
+    padding: 15px
+    border: 1px solid #666
+    border-top: none
+    word-wrap: break-word
+
+.category-list__category
+  border: 1px solid #666
+  margin-bottom: 15px
+  padding: 5px
+  display: flex
+  justify-content: space-between
+
+.category-list__category__button-add-sub-category
+  cursor: pointer
+
+.category-list__category:last-child
+  margin-bottom: 0

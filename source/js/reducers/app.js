@@ -1,16 +1,16 @@
 import * as ActionTypes from '../constants/ActionTypes';
-import { Map } from 'immutable';
-import { createSelector } from 'reselect';
+import { Map, List } from 'immutable';
+
+const initialCategoryes = List([{
+  id: 0,
+  parentId: 0,
+  name: 'root'
+}]);
 
 const initialState = Map({
   lastId: 0,
   counter: 0,
-  categoryes: [
-    {
-      id: 0,
-      name: 'root'
-    }
-  ],
+  categoryes: initialCategoryes,
   tasks: [],
   filt: {
     searchText: '',
@@ -19,21 +19,28 @@ const initialState = Map({
 });
 
 export default function app(previousState = initialState, action = {}) {
-  const payload = action.payload || null;
-
   switch (action.type) {
-    case ActionTypes.ADD_CATEGORY:
-      const newId = previousState.get('lastId') + 1 ;
-
-      console.log(newId);
-        return previousState.merge({
-          lastId: newId
-        });
+    case ActionTypes.ADD_SUB_CATEGORY:
+      console.log('ADD_SUB_CATEGORY', action.payload);
+      return previousState.merge({});
       break;
 
-    case ActionTypes.TEST_ACTION:
+    case ActionTypes.ADD_CATEGORY:
+      const newId = previousState.get('lastId') + 1 ;
+      const oldCategoryes = previousState.get('categoryes');
 
-      return previousState.merge({});
+      const newCat = List([{
+        id: newId,
+        parentId: 0,
+        name: action.payload
+      }]);
+
+      const newState =  Map({
+        lastId: newId,
+        categoryes: oldCategoryes.concat(newCat)
+      });
+
+      return previousState.mergeDeep(newState);
       break;
 
     default:
