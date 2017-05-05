@@ -93,50 +93,34 @@ export default class Main extends Component {
     this.refs.newCategoryName.focus();
   }
 
-  renderSubCategoryes(subCategoryes, parentId) {
+  renderCategoryes(categoryes, parentId = 0) {
     const { activeCategoryId } = this.props;
 
-    return subCategoryes.reverse().map( (subCategory, i) => (
-        (subCategory.parentId === parentId)
-        ?
-          <div
-            onClick={this.selectActiveCategoryHander.bind(this, subCategory.id)}
-            key={i}
-            className={
-              (subCategory.id == activeCategoryId)
-              ? "category-list__sub-category category-list__sub-category_active"
-              : "category-list__sub-category"
-            }>
-            <div className="category-list__category__name">
-              {`${subCategory.parentId} — ${subCategory.id} — ${subCategory.name}`}
-            </div>
-            { this.renderSubCategoryes(subCategoryes, subCategory.id) }
-          </div>
-        : null
-    ))
-  }
+    return categoryes.reverse().map( (category, i) => {
+      let isSub = (category.parentId === 0) ? false : true;
+      let activeClass = (isSub)
+        ? "category-list__sub-category category-list__sub-category_active"
+        : "category-list__category category-list__category_active";
+      let normalClass = (isSub)
+        ? "category-list__sub-category"
+        : "category-list__category";
+      let categotyClass = (category.id == activeCategoryId)
+        ? activeClass
+        : normalClass;
 
-  renderRootCategoryes() {
-    const { categoryes, activeCategoryId } = this.props;
-
-    return categoryes.reverse().map( (category, i) => (
-      (category.id && category.parentId === 0)
+      return (category.id && category.parentId === parentId)
       ?
-        <div
-          key={i}
-          onClick={this.selectActiveCategoryHander.bind(this, category.id)}
-          className={
-            (category.id == activeCategoryId)
-            ? "category-list__category category-list__category_active"
-            : "category-list__category"
-          }>
+         <div
+            key={i}
+            onClick={this.selectActiveCategoryHander.bind(this, category.id)}
+            className={categotyClass}>
           <div className="category-list__category__name">
-            {`${category.id} — ${category.name}`}
+            { `${category.id} — ${category.name}` }
           </div>
-          { this.renderSubCategoryes(categoryes, category.id) }
+          { this.renderCategoryes(categoryes, category.id) }
         </div>
       : null
-    ))
+    })
   }
 
   renderTasks() {
@@ -153,52 +137,54 @@ export default class Main extends Component {
   }
 
   render() {
-    const { activeCategoryId } = this.props;
+    const { categoryes, activeCategoryId } = this.props;
+    const addCategoryBtn = (activeCategoryId === 0) ? 'Add root-category': 'Add sub-category';
+    const addTaskBtnDisabled =  (activeCategoryId) ? '' : 'disabled';
 
     return (
       <div className="app-todo">
-        <div className="app-todo__categoryes">
 
-            <form action="" className="add-category" onSubmit={this.addCategoryHandler.bind(this)}>
+        <div className="app-todo__categoryes">
+            <form action="" className="add-category" onSubmit={ this.addCategoryHandler.bind(this) }>
               <input
-                onInput={this.inputCategoryHandler.bind(this)}
-                onBlur={this.inputCategoryHandler.bind(this)}
+                onInput={ this.inputCategoryHandler.bind(this) }
+                onBlur={ this.inputCategoryHandler.bind(this) }
                 ref="newCategoryName"
                 type="text"
-                className="add-category__category-name"/>
-
+                className="add-category__category-name" />
               <button
                 onClick={this.addCategoryHandler.bind(this)}
                 type="button"
                 className="add-category__button-add-category">
-                { (activeCategoryId === 0) ? 'Add category': 'Add sub-category'}</button>
+                {addCategoryBtn}
+              </button>
             </form>
-
             <div className='category-list'>
-              { this.renderRootCategoryes() }
+              { this.renderCategoryes(categoryes) }
             </div>
-
         </div>
-        <div className="app-todo__tasks">
 
-            <form action="" className="add-task" onSubmit={this.addTaskHandler.bind(this)}>
+        <div className="app-todo__tasks">
+            <form action="" className="add-task" onSubmit={ this.addTaskHandler.bind(this) }>
               <input
-                onInput={this.inputTaskHandler.bind(this)}
-                onBlur={this.inputTaskHandler.bind(this)}
+                onInput={ this.inputTaskHandler.bind(this) }
+                onBlur={ this.inputTaskHandler.bind(this) }
                 ref="newTaskName"
                 type="text"
-                className="add-task__task-name"/>
+                className="add-task__task-name" />
 
               <button
-                onClick={this.addTaskHandler.bind(this)}
+                onClick={ this.addTaskHandler.bind(this) }
                 type="button"
-                disabled={ (activeCategoryId) ? '' : 'disabled' }
-                className="add-task__button-add-task">Add task</button>
+                disabled={ addTaskBtnDisabled }
+                className="add-task__button-add-task">
+                Add task
+              </button>
             </form>
-
             <div className='task-list'>
               { this.renderTasks() }
             </div>
+
         </div>
       </div>
     );
