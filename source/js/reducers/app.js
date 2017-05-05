@@ -41,9 +41,10 @@ export default function app(previousState = initialState, action = {}) {
         break;
 
     case ActionTypes.SELCT_ACTIVE_CATEGORY:
-      console.log(action)
+        let selectedCategoryId = (action.selectedCategoryId == action.activeCategoryId ) ? 0 : action.selectedCategoryId
+
         return previousState.merge({
-          activeCategoryId: (action.selectedCategoryId == action.activeCategoryId ) ? 0 : action.selectedCategoryId
+          activeCategoryId: selectedCategoryId
         });
         break;
 

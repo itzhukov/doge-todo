@@ -20,7 +20,7 @@
 .add-category__category-name
     border: 1px solid #666
     transition: border 300ms ease
-    width: 60%
+    width: 50%
 
 .add-category__category-name_inputError
   outline: 1px solid #f90000
@@ -32,7 +32,7 @@
     box-shadow: none
     border: 1px solid #666
     outline: none
-    width: 40%
+    width: 50%
     cursor: pointer
     transition: background 300ms ease
 
@@ -45,6 +45,8 @@
     border-top: none
     word-wrap: break-word
 
+.category-list__category__name
+
 .category-list__category
   border: 1px solid #666
   margin-bottom: 15px
@@ -52,10 +54,22 @@
   display: flex
   justify-content: space-between
   cursor: pointer
-  transition: background 300ms ease
+  transition: all 300ms ease
+  display: flex
+  flex-direction: column
+  background: #fff
+  font-weight: normal
+
+.category-list__category:nth-child(2n)
+  background: #4495cc
+  color: #fff
 
 .category-list__category_active
-  background: #f1f1f1
+  background: #fffec9
+  font-weight: bold
+  margin-right: -10px
+  margin-left: -10px
+  border-width: 2px
 
 .category-list__category__button-add-sub-category
   cursor: pointer
@@ -63,6 +77,31 @@
 .category-list__category:last-child
   margin-bottom: 0
 
+.category-list__sub-category
+  background: #fff
+  border: 1px solid #666
+  margin-bottom: 3px
+  padding: 5px
+  display: flex
+  justify-content: space-between
+  cursor: pointer
+  transition: all 300ms ease
+  display: flex
+  flex-direction: column
+  margin-left: 15px
+  font-weight: normal
+  color: #000
+
+.category-list__sub-category:nth-child(2n+1)
+  background: #44cc6f
+  color: #fff
+
+.category-list__sub-category_active
+  background: #fffec9
+  font-weight: bold
+  margin-right: -10px
+  margin-left: -10px
+  border-width: 2px
 
 .add-task
   padding: 15px
@@ -74,7 +113,7 @@
 .add-task__task-name
     border: 1px solid #666
     transition: border 300ms ease
-    width: 60%
+    width: 50%
 
 .add-task__task-name_inputError
   outline: 1px solid #f90000
@@ -86,7 +125,7 @@
     box-shadow: none
     border: 1px solid #666
     outline: none
-    width: 40%
+    width: 50%
     cursor: pointer
     transition: background 300ms ease
 
@@ -106,3 +145,7 @@
   padding: 5px
   display: flex
   justify-content: space-between
+
+.task-list__task:nth-child(2n)
+  background: #4495cc
+  color: #fff
