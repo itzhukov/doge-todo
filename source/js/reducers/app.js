@@ -25,49 +25,50 @@ const initialState = Map({
 export default function app(previousState = initialState, action = {}) {
   switch (action.type) {
     case ActionTypes.ADD_TASK:
-      let newTaskId = previousState.get('lastTaskId') + 1;
-      let oldTasks = previousState.get('tasks');
+        let newTaskId = previousState.get('lastTaskId') + 1;
+        let oldTasks = previousState.get('tasks');
 
-      return previousState.mergeDeep(Map({
-        lastTaskId: newTaskId,
-        tasks: oldTasks.concat(List([
-          {
-            id: newTaskId,
-            text: action.text,
-            parentId: action.activeCategoryId
-          }
-        ]))
-      }));
-      break;
+        return previousState.mergeDeep(Map({
+          lastTaskId: newTaskId,
+          tasks: oldTasks.concat(List([
+            {
+              id: newTaskId,
+              text: action.text,
+              parentId: action.activeCategoryId
+            }
+          ]))
+        }));
+        break;
 
     case ActionTypes.SELCT_ACTIVE_CATEGORY:
-      return previousState.merge({
-        activeCategoryId: action.payload
-      });
-      break;
+      console.log(action)
+        return previousState.merge({
+          activeCategoryId: (action.selectedCategoryId == action.activeCategoryId ) ? 0 : action.selectedCategoryId
+        });
+        break;
 
     case ActionTypes.ADD_SUB_CATEGORY:
-      console.log('ADD_SUB_CATEGORY', action.payload);
-      return previousState.merge({});
-      break;
+        console.log('ADD_SUB_CATEGORY', action.payload);
+        return previousState.merge({});
+        break;
 
     case ActionTypes.ADD_CATEGORY:
-      let newCategoryId = previousState.get('lastCategoryId') + 1 ;
-      let oldCategoryes = previousState.get('categoryes');
+        let newCategoryId = previousState.get('lastCategoryId') + 1 ;
+        let oldCategoryes = previousState.get('categoryes');
 
-      return previousState.mergeDeep(Map({
-        lastCategoryId: newCategoryId,
-        categoryes: oldCategoryes.concat(List([
-          {
-            id: newCategoryId,
-            parentId: 0,
-            name: action.payload
-          }
-        ]))
-      }));
-      break;
+        return previousState.mergeDeep(Map({
+          lastCategoryId: newCategoryId,
+          categoryes: oldCategoryes.concat(List([
+            {
+              id: newCategoryId,
+              parentId: action.activeCategoryId,
+              name: action.name
+            }
+          ]))
+        }));
+        break;
 
     default:
-      return previousState.merge({});
+        return previousState.merge({});
   }
 }

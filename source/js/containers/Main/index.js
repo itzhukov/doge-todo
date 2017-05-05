@@ -46,16 +46,17 @@ export default class Main extends Component {
     event.preventDefault();
     event.stopPropagation();
 
-    const { actions } = this.props;
+    const { actions, activeCategoryId } = this.props;
     const name = this.refs.newCategoryName.value;
 
     if (name !== ''){
-      actions.addCategory(name);
+      actions.addCategory(name, activeCategoryId);
       this.refs.newCategoryName.value = '';
-      this.refs.newCategoryName.focus();
     } else {
       this.refs.newCategoryName.classList.add('add-category__category-name_inputError');
     }
+
+    this.refs.newCategoryName.focus();
   }
 
   addTaskHandler(event) {
@@ -68,8 +69,18 @@ export default class Main extends Component {
     if (text !== '' && activeCategoryId){
       actions.addTask(text, activeCategoryId);
       this.refs.newTaskName.value = '';
-      this.refs.newTaskName.focus();
+    } else {
+      this.refs.newTaskName.classList.add('add-task__task-name_inputError');
     }
+
+    this.refs.newTaskName.focus();
+  }
+
+  inputTaskHandler(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.refs.newTaskName.classList.remove('add-task__task-name_inputError');
   }
 
   render() {
@@ -98,14 +109,18 @@ export default class Main extends Component {
                 categoryes.reverse().map( (category, i) => (
                   (category.id)
                   ? <div
-                    onClick={actions.selectActiveCategory.bind(this, category.id)}
+                    onClick={actions.selectActiveCategory.bind(this, category.id, activeCategoryId)}
                     key={i}
                     className={ (category.id == activeCategoryId) ? "category-list__category category-list__category_active" : "category-list__category" }>
-                      <div className="category-list__category__name">{`${category.id} — ${category.name}`}</div>
-                      <button
-                        onClick={this.addSubCategoryHandler.bind(this, category.id)}
-                        type="button"
-                        className="category-list__category__button-add-sub-category">+</button>
+                      <div className="category-list__category__name">{`parentId: ${category.parentId} | №${category.id} — ${category.name}`}</div>
+                      {
+                        /*  <button
+                            onClick={this.addSubCategoryHandler.bind(this, category.id)}
+                            type="button"
+                            className="category-list__category__button-add-sub-category">+</button>
+                      */
+                      }
+
                     </div>
                   : null
                 ))
@@ -117,7 +132,8 @@ export default class Main extends Component {
 
             <form action="" className="add-task" onSubmit={this.addTaskHandler.bind(this)}>
               <input
-                onInput={this.inputCategoryHandler.bind(this)}
+                onInput={this.inputTaskHandler.bind(this)}
+                onBlur={this.inputTaskHandler.bind(this)}
                 ref="newTaskName"
                 type="text"
                 className="add-task__task-name"/>
@@ -131,18 +147,14 @@ export default class Main extends Component {
 
             <div className='task-list'>
               {
-
                   tasks.reverse().map( (task, i) => (
                     (task.parentId == activeCategoryId)
                     ?
-                    <div
-                      key={i}
-                      className="task-list__task">
-                        <div className="task-list__task__name">{`${task.id} — ${task.text}`}</div>
+                    <div key={i} className="task-list__task">
+                        <div className="task-list__task__name">{`${task.text}`}</div>
                       </div>
-                      : null
+                    : null
                   ))
-
               }
             </div>
         </div>
