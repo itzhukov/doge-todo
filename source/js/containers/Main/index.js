@@ -93,6 +93,15 @@ export default class Main extends Component {
     this.refs.newCategoryName.focus();
   }
 
+  handleRemoveCategory(categoryId, event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const { actions } = this.props;
+
+    actions.removeCategory(categoryId);
+  }
+
   renderCategoryes(categoryes, parentId = 0) {
     const { activeCategoryId } = this.props;
 
@@ -116,6 +125,9 @@ export default class Main extends Component {
             className={categotyClass}>
           <div className="category-list__category__name">
             { `${category.id} — ${category.name}` }
+            <div
+              onClick={this.handleRemoveCategory.bind(this, category.id)}
+              className="category-list__category__remove">x</div>
           </div>
           { this.renderCategoryes(categoryes, category.id) }
         </div>
@@ -124,13 +136,18 @@ export default class Main extends Component {
   }
 
   renderTasks() {
-    const { tasks, activeCategoryId } = this.props;
+    const { actions, tasks, activeCategoryId } = this.props;
 
     return tasks.reverse().map( (task, i) => (
       (task.parentId == activeCategoryId)
       ?
         <div key={i} className="task-list__task">
-          <div className="task-list__task__name">{`${task.text}`}</div>
+          <div className="task-list__task__name">
+            {`${task.text}`}
+            <div
+              onClick={actions.removeTask.bind(this, task.id)}
+              className="task-list__task-remove">x</div>
+          </div>
         </div>
       : null
     ))
