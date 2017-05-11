@@ -9,7 +9,7 @@ const initialCategoryes = List([{
   name: 'root'
 }]);
 
-const initialState = Map({
+export const initialState = Map({
   activeCategoryId: 0,
   lastCategoryId: 0,
   lastTaskId: 0,
@@ -39,7 +39,7 @@ function findCat(findId, catList){
   return arrCategoryesToRemove;
 }
 
-export default function app(previousState = initialState, action = {}) {
+export const app = function(previousState = initialState, action = {}) {
   switch (action.type) {
     case ActionTypes.REMOVE_CATEGORY:
       let removeCategoryId = action.categoryId;
@@ -120,6 +120,6 @@ export default function app(previousState = initialState, action = {}) {
         break;
 
     default:
-        return previousState.merge({});
+        return previousState;
   }
 }

@@ -6,14 +6,15 @@ import PropTypes from 'prop-types';
 
 @connect(
   (state) => ({
-    activeCategoryId: state.app.get('activeCategoryId'),
-    categoryes: state.app.get('categoryes'),
-    tasks: state.app.get('tasks')
+      activeCategoryId: state.get('app').get('activeCategoryId'),
+      categoryes: state.get('app').get('categoryes'),
+      tasks: state.get('app').get('tasks')
   }),
   (dispatch) => ({
     actions: bindActionCreators(ActionTypes, dispatch)
   })
 )
+
 
 export default class Main extends Component {
   static propTypes = {
@@ -102,7 +103,7 @@ export default class Main extends Component {
     actions.removeCategory(categoryId);
   }
 
-  renderCategoryes(categoryes, parentId = 0) {
+  renderCategoryes(categoryes = [], parentId = 0) {
     const { activeCategoryId } = this.props;
 
     return categoryes.reverse().map( (category, i) => {
@@ -136,7 +137,7 @@ export default class Main extends Component {
   }
 
   renderTasks() {
-    const { actions, tasks, activeCategoryId } = this.props;
+    const { actions, tasks = [], activeCategoryId } = this.props;
 
     return tasks.reverse().map( (task, i) => (
       (task.parentId == activeCategoryId)
