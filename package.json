@@ -10,10 +10,10 @@
     "test:watch": "npm test -- --watch"
   },
   "jest": {
+    "setupTestFrameworkScriptFile": "./setup-jasmine-env.js",
     "transform": {
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest"
     },
-    "setupTestFrameworkScriptFile": "./setup-jasmine-env.js",
     "moduleFileExtensions": [
       "js",
       "jsx"
