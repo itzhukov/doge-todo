@@ -10,7 +10,7 @@
     "test:watch": "npm test -- --watch"
   },
   "jest": {
-    "testResultsProcessor": "./node_modules/jest-junit",
+    "testResultsProcessor": "jest-junit",
     "transform": {
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest"
     },
