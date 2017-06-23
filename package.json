@@ -9,17 +9,11 @@
     "test": "jest",
     "test:watch": "npm test -- --watch"
   },
-  "jest-junit": {
-    "suiteName": "jest tests",
-    "output": "./output/test-results.xml",
-    "classNameTemplate": "{classname}-{title}",
-    "titleTemplate": "{classname}-{title}"
-  },
   "jest": {
+    "testResultsProcessor": "./node_modules/jest-junit",
     "transform": {
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest"
     },
-    "testResultsProcessor": "./node_modules/jest-junit",
     "unmockedModulePathPatterns": [
       "./node_modules/q",
       "./node_modules/react",
@@ -38,6 +32,12 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
     }
+  },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "output": "./output/test-results.xml",
+    "classNameTemplate": "{classname}-{title}",
+    "titleTemplate": "{classname}-{title}"
   },
   "author": "Vadim Zhukov",
   "license": "ISC",
