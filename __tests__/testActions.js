@@ -7,7 +7,7 @@ describe('Actions', () => {
     const name = 'Cat 1'
     const activeCategoryId = 0
     const expectedAction = { type: types.ADD_CATEGORY, name, activeCategoryId }
-    expect(actions.addCategory('Cat 2', activeCategoryId)).toEqual(expectedAction)
+    expect(actions.addCategory(name, activeCategoryId)).toEqual(expectedAction)
   });
 
   it('addTask', () => {
