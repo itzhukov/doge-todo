@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --colors",
-    "build": "rm -rf ./build && NODE_ENV=\"production\" webpack",
+    "build": "webpack",
     "test": "jest --colors --expand --verbose",
     "test:watch": "npm test -- --watch"
   },
@@ -13,6 +13,7 @@
     "transform": {
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest"
     },
+    "setupTestFrameworkScriptFile": "./setup-jasmine-env.js",
     "moduleFileExtensions": [
       "js",
       "jsx"
@@ -61,7 +62,9 @@
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "html-webpack-plugin": "^2.28.0",
+    "jasmine-reporters": "^2.2.1",
     "jest": "^20.0.0",
+    "jest-cli": "^20.0.4",
     "jest-immutable-matchers": "^1.4.0",
     "node-sass": "^4.5.2",
     "postcss-loader": "^1.3.3",
