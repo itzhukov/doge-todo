@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --colors",
     "build": "webpack",
-    "test": "jest --colors --expand --verbose",
+    "test": "jest",
     "test:watch": "npm test -- --watch"
   },
   "jest": {
