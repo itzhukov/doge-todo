@@ -4,4 +4,4 @@ build
 .module-cache
 *.log*
 _nogit
-output/
+output/*
